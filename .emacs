@@ -9,7 +9,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40"))
+ '(ecb-options-version "2.50")
+ '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -54,11 +55,11 @@ charset
     )
   
   (when (string-equal ".cpp" (substring (buffer-file-name) (search ".cpp" buffer-file-name)))
-    (compile (format "g++ %s -o %s -lm -O2 -w" (buffer-file-name) (substring buffer-file-name 0 -4)))
+    (compile (format "g++ %s -o %s -Wall" (buffer-file-name) (substring buffer-file-name 0 -4)))
     )
 
   (when (string-equal ".c" (substring (buffer-file-name) (search ".c" buffer-file-name)))
-    (compile (format "gcc %s -o %s -lm -O2 -w" (buffer-file-name) (substring buffer-file-name 0 -2)))
+    (compile (format "gcc %s -o %s -Wall" (buffer-file-name) (substring buffer-file-name 0 -2)))
     )
   )
 
@@ -99,6 +100,10 @@ charset
     )
   )
 
+(require 'package)
+(package-initialize)
+(add-to-list'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
 ;(setq gdb-many-windows t) ;;many windows for gdb
 
 ;(add-to-list 'load-path "G:/data/.emacs.d/paredit")
@@ -131,27 +136,22 @@ charset
 (color-theme-gray30)
 ;(color-theme-calm-forest)
 
-;(add-to-list 'load-path "G:/data/.emacs.d/cedet")
-;(load-file "G:/data/.emacs.d/cedet/common/cedet.el")
+                                        ;
+;(add-to-list 'load-path "~/.emacs.d/cedet")
+;(load-file "~/.emacs.d/cedet/common/cedet.el")
 ;(global-ede-mode 1)
 ;(semantic-load-enable-gaudy-code-helpers)
 ;(global-srecode-minor-mode 1)
 
-(add-to-list 'load-path "D:/data/.emacs.d/ecb")
+(add-to-list 'load-path "~/.emacs.d/ecb")
 (require 'ecb)
-;(require 'ecb-autoloads)
-(setq ecb-auto-activate t)
+;(ecb-activate)
 (setq ecb-tip-of-the-day nil)
 (setq stack-trace-on-error nil)
+(setq ecb-auto-activate t)
 (ecb-activate)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40")
- '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2)))
+
 
 (defun refresh-file ()
   (interactive)
@@ -173,4 +173,19 @@ charset
 ;(require 'w3m-load) 
 ;(add-to-list 'exec-path "G:/data/.emacs.d/w3m")
 ;(require 'w3m)
+
+(add-to-list 'load-path "~/.emacs.d/smex")
+(require 'smex)
+(smex-initialize)
+(global-set-key(kbd "M-x") 'smex)
+(global-set-key(kbd "M-X") 'smex-major-mode-commands)
+;;This is your old M-x.
+(global-set-key(kbd "C-c C-c M-x") 'execute-extended-command)
+
+;(add-to-list 'load-path "D:/data/.emacs.d/flycheck")
+;(require 'flycheck)
+
+(add-to-list 'load-path "~/.emacs.d/powerline")
+(require 'powerline)
+(powerline-default-theme)
 
