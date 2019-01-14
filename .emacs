@@ -69,9 +69,17 @@ charset
 (defun run()
   (interactive)
   (save-buffer)
-  (shell)
-  (buffer-file-name)
+  (shell-command (format "echo @echo off ^& %s.exe >> tmp.bat" (substring buffer-file-name 0 -4)))
+  (shell-command "echo echo -------------------------------- ^& echo Process exited with return value ^%errorlevel^% ^& pause ^& exit >> tmp.bat")
+  (shell-command "start tmp.bat")
+  (shell-command "del tmp.bat")
   )
+
+;(defun run()
+;  (interactive)
+;  (shell-command (format "gnome-terminal -x bash -c \"%s;read -n 1;\"" (substring buffer-file-name 0 -4)))
+;  ) ; for Ububtu, NOI Linux
+
 (global-set-key [f7] 'mycompile) ;;use f7 for compile
 (global-set-key [f8] 'run)
 (global-set-key [f9] 'gdb)
