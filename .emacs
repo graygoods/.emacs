@@ -9,8 +9,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.50")
- '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2)))
+ '(custom-enabled-themes (quote (wombat)))
+ '(ecb-options-version "2.40")
+ '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
+ '(show-paren-mode t))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -42,7 +45,7 @@ charset
 (setq show-paren-style 'parenthesis) ;;show paren
 
 (require 'hl-line)
-(global-hl-line-mode t) ;;high light line
+;(global-hl-line-mode t) ;;high light line
 
 
 ;(setq y "org")
