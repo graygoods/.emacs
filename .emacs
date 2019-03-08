@@ -26,6 +26,14 @@
 charset
 (font-spec :family "Microsoft Yahei" :size 18)))
 
+(let ((class '((class color) (min-colors 89))))
+  (custom-set-faces
+   `(default ((,class (:background "#242424" :foreground "#f6f3e8"))))
+   `(cursor ((,class (:background "#656565"))))
+   ;; Highlighting faces
+   `(highlight ((,class (:background "Black" :foreground nil
+			 :underline nil))))))
+
 (load-file "~/.emacs.d/htmlize.el")
 
 (require 'linum)
@@ -45,7 +53,7 @@ charset
 (setq show-paren-style 'parenthesis) ;;show paren
 
 (require 'hl-line)
-;(global-hl-line-mode t) ;;high light line
+(global-hl-line-mode t) ;;high light line
 
 
 ;(setq y "org")
