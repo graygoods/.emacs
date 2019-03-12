@@ -149,10 +149,10 @@ charset
 (yas-global-mode 1)
 
 
-(add-to-list 'load-path "~/.emacs.d/color-theme")
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-gray30)
+;(add-to-list 'load-path "~/.emacs.d/color-theme")
+;(require 'color-theme)
+;(color-theme-initialize)
+;(color-theme-gray30)
 ;(color-theme-calm-forest)
 
                                         ;
