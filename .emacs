@@ -170,6 +170,37 @@ charset
 (setq ecb-auto-activate t)
 (ecb-activate)
 
+(load-file "~/.emacs.d/tabbar.el")
+(require 'tabbar)
+(tabbar-mode t)
+(set-face-attribute 'tabbar-default nil
+                    :family "Consolas"
+                    :background "#5E5E5E"
+                    :foreground "#CECECE"
+                    :height 1.0
+                    )
+;; 设置左边按钮外观：外框框边大小和颜色
+(set-face-attribute 'tabbar-button nil
+                    :inherit 'tabbar-default
+                    :box '(:line-width 1 :color "#5E5E5E")
+                    )
+;; 设置当前tab外观：颜色，字体，外框大小和颜色
+(set-face-attribute 'tabbar-selected nil
+                    :inherit 'tabbar-default
+                    :foreground "White"
+                    :background "#2E2E2E"
+                    :box '(:line-width 2 :color "#2E2E2E")
+                    ;; :overline "black"
+                    ;; :underline "black"
+                    :weight 'bold
+                    )
+;; 设置非当前tab外观：外框大小和颜色
+(set-face-attribute 'tabbar-unselected nil
+                    :inherit 'tabbar-default
+                    ;:foreground "White"
+                    :background "#5E5E5E"
+                    :box '(:line-width 2 :color "#5E5E5E")
+                    )
 
 
 (defun refresh-file ()
