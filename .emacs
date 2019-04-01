@@ -60,33 +60,36 @@ charset
 (defun mycompile()
   (interactive)
   (save-buffer)
-
-  (when (string-equal ".org" (substring (buffer-file-name) (search ".org" buffer-file-name)))
+  (cond
+   ((string-equal ".org" (substring (buffer-file-name) (search ".org" buffer-file-name)))
     (org-export-dispatch)
     )
-  
-  (when (string-equal ".cpp" (substring (buffer-file-name) (search ".cpp" buffer-file-name)))
-    (compile (format "g++ %s -o %s -Wall" (buffer-file-name) (substring buffer-file-name 0 -4)))
+   
+   ((string-equal ".cpp" (substring (buffer-file-name) (search ".cpp" buffer-file-name)))
+    (compile (format "g++ %s -o %s -Wall -g3" (buffer-file-name) (substring buffer-file-name 0 -4)))
     )
 
-  (when (string-equal ".c" (substring (buffer-file-name) (search ".c" buffer-file-name)))
-    (compile (format "gcc %s -o %s -Wall" (buffer-file-name) (substring buffer-file-name 0 -2)))
+   ((string-equal ".c" (substring (buffer-file-name) (search ".c" buffer-file-name)))
+    (compile (format "gcc %s -o %s -Wall -g3" (buffer-file-name) (substring buffer-file-name 0 -2)))
     )
+   )
   )
 
 (defun run()
   (interactive)
   (save-buffer)
-  (shell-command (format "echo @echo off ^& %s.exe >> tmp.bat" (substring buffer-file-name 0 -4)))
-  (shell-command "echo echo -------------------------------- ^& echo Process exited with return value ^%errorlevel^% ^& pause ^& exit >> tmp.bat")
-  (shell-command "start tmp.bat")
-  (shell-command "del tmp.bat")
+  (cond 
+   ((string-equal system-type "gnu/linux")
+    (shell-command (format "gnome-terminal -- bash -c \"time %s; read n -1\"" (substring buffer-file-name 0 -4))))
+   
+   ((string-equal system-type "windows-nt")
+    (shell-command (format "echo @echo off ^& %s.exe >> tmp.bat" (substring buffer-file-name 0 -4)))
+    (shell-command "echo echo -------------------------------- ^& echo Process exited with return value ^%errorlevel^% ^& pause ^& exit >> tmp.bat")
+    (shell-command "start tmp.bat")
+    (shell-command "del tmp.bat")
+    )
+   )
   )
-
-;(defun run()
-;  (interactive)
-;  (shell-command (format "gnome-terminal -x bash -c \"%s;read -n 1;\"" (substring buffer-file-name 0 -4)))
-;  ) ; for Ububtu, NOI Linux
 
 (global-set-key [f7] 'mycompile) ;;use f7 for compile
 (global-set-key [f8] 'run)
